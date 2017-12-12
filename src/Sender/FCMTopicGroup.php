@@ -15,7 +15,6 @@ use Exception;
  */
 class FCMTopicGroup extends HTTPSender
 {
-    const MAX_TOKEN_PER_REQUEST = 1000;
     const ADD_URL_SUFFIX = ':batchAdd';
     const REMOVE_URL_SUFFIX = ':batchRemove';
     const INFO_URL_SUFFIX = '/info/';
@@ -43,7 +42,10 @@ class FCMTopicGroup extends HTTPSender
             try {
                 $response = new TopicGroupResponse($responseGuzzle, $registrationIds);
             } catch (Exception $e) {
-                $response = $e->getMessage();
+                $response = [
+                    'error' => $e->getMessage(),
+                    'error_code' => $e->getCode(),
+                ];
             }
         }
 
@@ -72,7 +74,10 @@ class FCMTopicGroup extends HTTPSender
             try {
                 $response = new TopicGroupResponse($responseGuzzle, $registrationIds);
             } catch (Exception $e) {
-                $response = $e->getMessage();
+                $response = [
+                    'error' => $e->getMessage(),
+                    'error_code' => $e->getCode(),
+                ];
             }
         }
 
@@ -101,7 +106,10 @@ class FCMTopicGroup extends HTTPSender
             try {
                 $response = new TopicInfoResponse($responseGuzzle);
             } catch (Exception $e) {
-                $response = $e->getMessage();
+                $response = [
+                    'error' => $e->getMessage(),
+                    'error_code' => $e->getCode(),
+                ];
             }
         }
 
